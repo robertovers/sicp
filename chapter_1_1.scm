@@ -1,6 +1,10 @@
-#| SICP - Chapter 1 |#
+#| ########################################################################## |#
+#| # SICP - Chapter 1                                                       # |#
+#| ########################################################################## |#
+
 
 #| Exercise 1.1 |#
+#| ========================================================================== |#
 
 (define (print x)
   (display x)
@@ -43,6 +47,7 @@
 
 
 #| Exercise 1.2 |#
+#| ========================================================================== |#
 
 (print
   (/ (+ 5
@@ -57,6 +62,7 @@
 
 
 #| Exercise 1.3 |#
+#| ========================================================================== |#
 
 (define (square x)
   (* x x))
@@ -73,6 +79,7 @@
 
 
 #| Exercise 1.4 |#
+#| ========================================================================== |#
 
 (define (a-plus-abs-b a b)
   ((if (> b 0) + -) a b))
@@ -84,6 +91,7 @@
 
 
 #| Exercise 1.5 |#
+#| ========================================================================== |#
 
 (define (test x y)
   (if (= x 0)
@@ -128,4 +136,62 @@
     returns 0, avoiding the infinitely-recursive loop.
  
 |#
+
+
+#| Example 1.1.7 |#
+#| ========================================================================== |#
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (square x)
+  (* x x))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt-iter guess x)
+  (if (good-enough guess x)
+    guess
+    (sqrt-iter (improve guess x) x)))
+
+(define (newton-sqrt x)
+  (sqrt-iter 1 x))
+
+(print (exact->inexact (newton-sqrt 2)))
+
+
+#| Exercise 1.6 |#
+#| ========================================================================== |#
+
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+(define (new-sqrt-iter guess x)
+  (new-if (good-enough guess x)
+          guess
+          (new-sqrt-iter (improve guess x) x)))
+
+(define (new-sqrt x)
+  (new-sqrt-iter 1 x))
+
+#|
+
+  When we attempt to call new-sqrt, we see that our program doesn't exit. This
+  is because, recalling from earlier, scheme uses applicative-order evaluation
+  for procedures. This means that when new-if inside new-sqrt-iter is evaluated,
+  it will always evaluate new-sqrt-iter before reaching the cond, resulting in 
+  an infinitely-recursive loop. The standard if-condition, on the other hand,
+  evaluates the predicates sequentially, meaning that when good-enough returns
+  true, it will return before evaluating sqrt-iter.
+
+|#
+
+
+#| Exercise 1.7 |#
+#| ========================================================================== |#
 
