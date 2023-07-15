@@ -212,3 +212,22 @@
 #| Exercise 1.8 |#
 #| ========================================================================== |#
 
+(define (improve-1.8 y x)
+  (/ (+ (/ x (square y)) (* 2 y)) 3))
+
+(define (good-enough-1.8 guess last_guess)
+  (< (abs (/ (- guess last_guess) guess)) 0.0000001))
+
+(define (cube-root-iter guess x)
+  (if (good-enough-1.8 (improve-1.8 guess x) guess)
+    (improve-1.8 guess x)
+    (cube-root-iter (improve-1.8 guess x) x)))
+
+(define (cube-root x)
+  (cube-root-iter 1.0 x))
+
+(print (exact->inexact (cube-root 27)))
+
+
+#| Exercise 1.9 |#
+#| ========================================================================== |#
