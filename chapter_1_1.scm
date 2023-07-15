@@ -159,7 +159,7 @@
     (sqrt-iter (improve guess x) x)))
 
 (define (newton-sqrt x)
-  (sqrt-iter 1 x))
+  (sqrt-iter 1.0 x))
 
 (print (exact->inexact (newton-sqrt 2)))
 
@@ -177,7 +177,7 @@
           (new-sqrt-iter (improve guess x) x)))
 
 (define (new-sqrt x)
-  (new-sqrt-iter 1 x))
+  (new-sqrt-iter 1.0 x))
 
 #|
 
@@ -193,5 +193,22 @@
 
 
 #| Exercise 1.7 |#
+#| ========================================================================== |#
+
+(define (good-enough-1.7 guess last_guess)
+  (< (abs (/ (- guess last_guess) guess)) 0.0000001))
+
+(define (sqrt-iter-1.7 guess x)
+  (if (good-enough-1.7 (improve guess x) guess)
+    (improve guess x) 
+    (sqrt-iter-1.7 (improve guess x) x)))
+
+(define (sqrt-1.7 x)
+  (sqrt-iter-1.7 1.0 x))
+
+(print (exact->inexact (sqrt-1.7 20000000)))
+
+
+#| Exercise 1.8 |#
 #| ========================================================================== |#
 
