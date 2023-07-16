@@ -7,9 +7,6 @@
 #| # Exercise 1.8                                                           # |#
 #| ########################################################################## |#
 
-(define (average x y)
-  (/ (+ x y) 2))
-
 (define (square x)
   (* x x))
 
@@ -26,3 +23,16 @@
 
 (define (cube-root x)
   (cube-root-iter 1.0 x))
+
+; refactored using Block Structure and Lexical Scoping from 1.1.8
+
+(define (neat-cube-root x)
+  (define (improve y)
+    (/ (+ (/ x (square y)) (* 2 y)) 3))
+  (define (good-enough guess last_guess)
+    (< (abs (/ (- guess last_guess) guess)) 0.0000001))
+  (define (cube-root-iter guess)
+    (if (good-enough (improve guess) guess)
+      (improve guess)
+      (cube-root-iter (improve guess))))
+  (cube-root-iter 1.0))
