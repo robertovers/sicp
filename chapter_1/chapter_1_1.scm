@@ -1,5 +1,8 @@
 #| ########################################################################## |#
-#| # SICP - Chapter 1                                                       # |#
+#| # The Structure and Interpretation of Computer Programs                  # |#
+#| # ====================================================================== # |#
+#| # Chapter 1: Building Abstractions with Procedures                       # |#
+#| # Section 1.1: The Elements of Programming                               # |#
 #| ########################################################################## |#
 
 
@@ -227,7 +230,3 @@
   (cube-root-iter 1.0 x))
 
 (print (exact->inexact (cube-root 27)))
-
-
-#| Exercise 1.9 |#
-#| ========================================================================== |#
