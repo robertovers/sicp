@@ -11,7 +11,7 @@
 
 (define (cont-frac n d k)
   (define (iter i res)
-    (if (> 0 i)
+    (if (= i 0)
       res
       (iter (- i 1) (/ (n i) (+ (d i) res)))))
   (iter k 0))
